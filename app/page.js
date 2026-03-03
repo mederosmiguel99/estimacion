@@ -100,8 +100,13 @@ export default function page() {
     try {
       const res = await axios.post('/api/projects', data);
 
-      console.log(res.data);
-      setProjects((prev) => [...prev, res.data]);
+      setProjects((prev) => {
+        const updated = [...prev, res.data];
+
+        return updated.sort(
+          (a, b) => new Date(a.expirationDate) - new Date(b.expirationDate)
+        );
+      });
     } catch (err) {
       console.log(err);
     }
@@ -109,7 +114,7 @@ export default function page() {
 
   // 💾 SAVE QUOTATION
   const handleSaveQuotation = async (data) => {
-    
+
     try {
       const res = await axios.post(
         `/api/projects/${data.projectId}/quotations`,
@@ -142,11 +147,15 @@ export default function page() {
             prev.filter((p) => p._id !== data.id)
           );
         } else {
-          setProjects((prev) =>
-            prev.map((p) =>
+          setProjects((prev) => {
+            const updated = prev.map((p) =>
               p._id === data.id ? { ...p, ...data } : p
-            )
-          );
+            );
+
+            return updated.sort(
+              (a, b) => new Date(a.expirationDate) - new Date(b.expirationDate)
+            );
+          });
         }
 
       } else {

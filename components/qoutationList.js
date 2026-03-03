@@ -37,21 +37,19 @@ export default function subCategoriesList({ project, onAddSubCategory, onEdit, o
                                 <h4 className="font-medium text-gray-900 ">{sub.name}</h4>
                                 <div className='flex'>
                                     <p className="text-sm text-gray-600 mt-1">
-                                        {sub.requestDate
+                                        {`${sub.requestDate
                                             ? new Date(sub.requestDate).toLocaleDateString("en-US", {
                                                 year: "numeric",
                                                 month: "short",
                                                 day: "numeric",
                                             })
-                                            : ""}</p>
-                                    <p className="text-sm text-gray-600 mt-1">
-                                        {sub.responseDate
-                                            ? new Date(sub.responseDate).toLocaleDateString("en-US", {
-                                                year: "numeric",
-                                                month: "short",
-                                                day: "numeric",
-                                            })
-                                            : "-"}</p>
+                                            : ""} - ${sub.responseDate
+                                                ? new Date(sub.responseDate).toLocaleDateString("en-US", {
+                                                    year: "numeric",
+                                                    month: "short",
+                                                    day: "numeric",
+                                                })
+                                                : "-"}`}</p>
                                 </div>
                             </div>
                         </div>

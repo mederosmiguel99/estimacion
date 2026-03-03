@@ -1,32 +1,38 @@
-import { NextResponse } from "next/server";
-import connectDB from "@/lib/mongodb";
-import Project from "@/models/Project";
+import clientPromise from '@/lib/mongodb';
 
 export async function GET() {
-  try {
-    await connectDB();
+    try {
+        const client = await clientPromise;
+        const db = client.db('projectsDB');
 
-    const projects = await Project.find({
-      isDeleted: false,
-    });
+        const projects = await db
+            .collection('projects')
+            .find({ isDeleted: false })
+            .toArray();
 
-    // 🔥 extraer solo las cotizaciones guardadas
-    const savedQuotations = projects.flatMap(project =>
-      (project.quotations || [])
-        .filter(q => q.isSaved && !q.isDeleted)
-        .map(q => ({
-          ...q.toObject(),
-          projectId: project._id,
-          projectName: project.name
-        }))
-    );
+        // 🔥 Validación defensiva
+        if (!Array.isArray(projects)) {
+            return Response.json([], { status: 200 });
+        }
 
-    return NextResponse.json(savedQuotations);
+        // 🔥 Extraer cotizaciones guardadas
+        const savedQuotations = projects.flatMap(project =>
+            (project.quotations || [])
+                .filter(q => q.isSaved && !q.isDeleted)
+                .map(q => ({
+                    ...q,
+                    projectId: project._id,
+                    projectName: project.name,
+                }))
+        );
 
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Error fetching saved quotations" },
-      { status: 500 }
-    );
-  }
+        return Response.json(savedQuotations);
+
+    } catch (error) {
+        console.error(error);
+        return Response.json(
+            { error: 'Error fetching saved quotations' },
+            { status: 500 }
+        );
+    }
 }

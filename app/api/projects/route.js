@@ -8,7 +8,7 @@ export async function GET() {
         const projects = await db
             .collection('projects')
             .find({ isDeleted: false, isCompleted: false, })
-            .sort({ createdAt: 1 })
+            .sort({ expirationDate: 1 })
             .toArray();
 
         return Response.json(projects);

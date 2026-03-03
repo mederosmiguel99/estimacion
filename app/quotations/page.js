@@ -1,5 +1,5 @@
 'use client'
-
+import '@styles/categories.css';
 import React, { useEffect, useState } from 'react'
 import Quotations from '@components/quotations';
 import StatsCard from '@components/statsCard';
@@ -42,12 +42,13 @@ export default function page() {
                             <div className="bg-white  rounded-xl shadow-lg overflow-hidden">
                                 <div className="px-6 py-4 border-b border-gray-200  flex justify-between items-center">
                                     <h2 className="text-xl font-bold text-gray-900 ">Projects</h2>
-                                    
+
                                 </div>
                                 <div className="p-4" id="categoriesList">
                                     {/* Categories will be loaded here */}
                                     {quotations.map((quotation) => (
                                         <Quotations
+                                            key={quotation._id}
                                             sub={quotation}
                                         />
                                     ))}

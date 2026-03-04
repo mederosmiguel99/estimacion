@@ -13,7 +13,7 @@ export default function statsCard() {
                 </div>
 
                 <div className="bg-white rounded-lg shadow p-6">
-                    <Link href="/proyects" className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-2 rounded-lg flex items-center justify-center">
+                    <Link href="/projects" className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-2 rounded-lg flex items-center justify-center">
                         <i data-feather="plus" className="mr-1" /> Proyects
                     </Link>
                 </div>

@@ -38,6 +38,10 @@ export async function POST(req) {
             createdAt: new Date(),
             isDeleted: false,
             deletedAt: null,
+            alertStatus: {
+                twoDaysBefore: false,
+                sameDay: false,
+            },
         };
 
         const result = await db.collection('projects').insertOne(newProject);

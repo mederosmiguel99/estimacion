@@ -1,26 +1,46 @@
 'use client'
-import '@styles/categories.css';
 import React, { useEffect, useState } from 'react'
-import Quotations from '@components/quotations';
+// import "@styles/theme.css"
+import '@styles/categories.css';
+
 import StatsCard from '@components/statsCard';
+import ProjectsComponent from "@components/projectsComponent";
 import axios from 'axios';
+import Link from 'next/link';
 
 export default function page() {
+    const [projects, setProjects] = useState([]);
+    const [selectedProjectId, setSelectedProjectId] = useState(null);
 
-    const [quotations, setquotations] = useState([]);
+    const [openProjectId, setOpenProjectId] = useState(null);
 
+    // 🔥 GET PROJECTS
     useEffect(() => {
-        const getQuotation = async () => {
+        const getProjects = async () => {
             try {
-                const res = await axios.get('/api/quotations/saved');
-                console.log(res);
-                setquotations(res.data);
+                const res = await axios.get('/api/projects/saved');
+                setProjects(res.data);
             } catch (err) {
                 console.log(err);
             }
         };
-        getQuotation();
+        getProjects();
     }, []);
+
+    // 🔹 SELECT
+    const handleSelect = (id) => {
+        setSelectedProjectId(id);
+    };
+
+    // 🔽 TOGGLE ACCORDION
+    const toggleProject = (id) => {
+        setOpenProjectId(prev => prev === id ? null : id);
+        setSelectedProjectId(id);
+    };
+
+    const selectedProject = projects.find(
+        (p) => p._id === selectedProjectId
+    );
 
     return (
         <>
@@ -28,7 +48,7 @@ export default function page() {
                 <div className="max-w-7xl mx-auto">
                     {/* Page Header */}
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold text-gray-900 ">Quotation Saved</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 ">Project Finished</h1>
                         <button
                             onClick={() => window.location.href = "/"}
                             title="Go to Home"
@@ -47,25 +67,24 @@ export default function page() {
                             <div className="bg-white  rounded-xl shadow-lg overflow-hidden">
                                 <div className="px-6 py-4 border-b border-gray-200  flex justify-between items-center">
                                     <h2 className="text-xl font-bold text-gray-900 ">Projects</h2>
-
                                 </div>
                                 <div className="p-4" id="categoriesList">
                                     {/* Categories will be loaded here */}
-                                    {quotations.map((quotation) => (
-                                        <Quotations
-                                            key={quotation._id}
-                                            sub={quotation}
+                                    {projects.map((project) => (
+                                        <ProjectsComponent
+                                            key={project._id}
+                                            project={project}
+                                            isSelected={openProjectId === project._id}
+                                            isOpen={openProjectId === project._id}
+                                            onSelect={toggleProject}
                                         />
                                     ))}
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </main>
-
         </>
     )
 }

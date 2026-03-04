@@ -3,7 +3,7 @@ import React from 'react'
 export default function quotations({ sub }) {
     return (
         <>
-            <div key={sub._id} className={`subcategory-card bg-white border border-gray-300 rounded-lg p-4 mb-3 dark:hover:border-fuchsia-300 transition`}>
+            <div key={sub._id} className={`subcategory-card border border-gray-300 rounded-lg p-4 mb-3 dark:hover:border-fuchsia-300 transition`}>
                 <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-fuchsia-100 rounded-lg">

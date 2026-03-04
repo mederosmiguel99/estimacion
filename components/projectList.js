@@ -125,16 +125,16 @@ export default function categoriesList(
                 {/* 🔥 ACCORDION CONTENT */}
                 {
                     isOpen && (
-                        <div className={`mt-8 bg-white  rounded-xl shadow-lg overflow-hidden ${isOpen ? "max-h-[500px] mt-4" : "max-h-0"}`}>
+                        <div className={`mt-8 rounded-xl shadow-lg overflow-hidden ${isOpen ? "max-h-[500px] mt-4" : "max-h-0"}`} style={{backgroundColor:'pink', marginBottom: '3%'}}>
                             <div className='flex justify-between items-center'>
                                 <div className="px-6 py-4 border-b border-gray-200  ">
-                                    <h2 className="text-xl font-bold text-gray-900 ">Qoutations</h2>
+                                    <h2 className="text-xl font-bold text-gray-900 ">Quotations</h2>
                                 </div>
                                 <div className='px-6 py-4'>
                                     <button id="addCategoryBtn" className="bg-fuchsia-700 hover:bg-fuchsia-800 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
                                         onClick={onAddQuotation}>
                                         <i className="fa-regular fa-plus" ></i>
-                                        <span>Add Qoutation</span>
+                                        <span>Add Quotation</span>
                                     </button>
                                 </div>
                             </div>

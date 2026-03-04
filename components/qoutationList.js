@@ -39,12 +39,14 @@ export default function subCategoriesList({ project, onAddSubCategory, onEdit, o
                                     <p className="text-sm text-gray-600 mt-1">
                                         {`${sub.requestDate
                                             ? new Date(sub.requestDate).toLocaleDateString("en-US", {
+                                                timeZone: "UTC",
                                                 year: "numeric",
                                                 month: "short",
                                                 day: "numeric",
                                             })
                                             : ""} - ${sub.responseDate
                                                 ? new Date(sub.responseDate).toLocaleDateString("en-US", {
+                                                    timeZone: "UTC",
                                                     year: "numeric",
                                                     month: "short",
                                                     day: "numeric",

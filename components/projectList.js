@@ -54,15 +54,17 @@ export default function categoriesList(
                                     {project.name}
                                 </h3>
                                 <div className='flex'>
-                                 <p className="text-sm text-gray-600 mt-1">
-                                    {`${project.requestDate
-                                        ? new Date(project.requestDate).toLocaleDateString("en-US", {
-                                            year: "numeric",
-                                            month: "short",
-                                            day: "numeric",
-                                        })
+                                    <p className="text-sm text-gray-600 mt-1">
+                                        {`${project.requestDate
+                                            ? new Date(project.requestDate).toLocaleDateString("en-US", {
+                                                timeZone: "UTC",
+                                                year: "numeric",
+                                                month: "short",
+                                                day: "numeric",
+                                            })
                                         : ""} - ${project.expirationDate
                                             ? new Date(project.expirationDate).toLocaleDateString("en-US", {
+                                                timeZone: "UTC",
                                                 year: "numeric",
                                                 month: "short",
                                                 day: "numeric",

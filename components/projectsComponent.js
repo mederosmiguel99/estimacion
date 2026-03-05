@@ -94,10 +94,16 @@ export default function categoriesList(
 
                             <div
                                 className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[500px] mt-4" : "max-h-0"}`}>
-                                <Quotations
-                                    sub={project}
-                                    selectedCategory={project}
-                                />
+                                {
+                                    project.quotations.map((q) => {
+                                        return <Quotations
+                                            key={q._id}
+                                            sub={q}
+                                            selectedCategory={project}
+                                        />
+                                    })
+                                }
+
                             </div>
                         </div>
                     )

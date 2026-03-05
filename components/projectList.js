@@ -27,10 +27,21 @@ export default function categoriesList(
 
         const diffTime = exp - today;
         const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        const quotationPending = project?.quotations?.filter(q => !q.isReceived)?.length || 0
 
-        if (diffDays <= 0) return "bg-red-400";        // 🔴 hoy o vencido
-        if (diffDays <= 2) return "bg-yellow-400";     // 🟡 1-2 días
-        return "bg-green-300";                         // 🟢 más de 2 días
+        if (diffDays <= 0 && quotationPending != 0 && project.quotations.length > 0)
+            return {
+                warning: "bg-red-400",
+                textWarning: 'OutTime'
+            };        // 🔴 hoy o vencido
+        if (diffDays <= 2 && quotationPending != 0 && project.quotations.length > 0) return {
+            warning: "bg-yellow-400",
+            textWarning: 'Delayed'
+        };     // 🟡 1-2 días
+        return {
+            warning: "bg-green-300",
+            textWarning: 'InTime'
+        }                         // 🟢 más de 2 días
     };
 
     const pendingCount = project?.quotations?.filter(q => !q.isReceived)?.length || 0;
@@ -48,7 +59,7 @@ export default function categoriesList(
                 >
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-4">
-                            <div className={`w-3 h-3 rounded-full ${getProjectStatusColor(project.expirationDate)}`} />
+                            <div className={`w-3 h-3 rounded-full ${getProjectStatusColor(project.expirationDate).warning}`} />
                             <div>
                                 <h3 className="font-semibold text-gray-900">
                                     {project.name}
@@ -62,14 +73,14 @@ export default function categoriesList(
                                                 month: "short",
                                                 day: "numeric",
                                             })
-                                        : ""} - ${project.expirationDate
-                                            ? new Date(project.expirationDate).toLocaleDateString("en-US", {
-                                                timeZone: "UTC",
-                                                year: "numeric",
-                                                month: "short",
-                                                day: "numeric",
-                                            })
-                                            : "-"}`}</p>
+                                            : ""} - ${project.expirationDate
+                                                ? new Date(project.expirationDate).toLocaleDateString("en-US", {
+                                                    timeZone: "UTC",
+                                                    year: "numeric",
+                                                    month: "short",
+                                                    day: "numeric",
+                                                })
+                                                : "-"}`}</p>
                                 </div>
 
                             </div>
@@ -77,11 +88,11 @@ export default function categoriesList(
 
                         <div className="flex items-center space-x-2">
                             <div>
-                                <span className={`badge ${getProjectStatusColor(project.expirationDate)} text-primary-800 dark:text-primary-300`}>
+                                <span className={`badge ${getProjectStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>
                                     Pending: {project?.quotations?.filter(q => !q.isReceived)?.length || 0}
                                 </span>
-                                <span className={`badge ${getProjectStatusColor(project.expirationDate)} text-primary-800 dark:text-primary-300`}>
-                                    inTime
+                                <span className={`badge ${getProjectStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>
+                                    {getProjectStatusColor(project.expirationDate).textWarning}
                                 </span>
                             </div>
 
@@ -119,15 +130,12 @@ export default function categoriesList(
                             </div>
                         </div>
                     </div>
-
-
-
                 </div >
 
                 {/* 🔥 ACCORDION CONTENT */}
                 {
                     isOpen && (
-                        <div className={`mt-8 rounded-xl shadow-lg overflow-hidden ${isOpen ? "max-h-[500px] mt-4" : "max-h-0"}`} style={{backgroundColor:'pink', marginBottom: '3%'}}>
+                        <div className={`mt-8 rounded-xl shadow-lg overflow-hidden ${isOpen ? "max-h-[500px] mt-4" : "max-h-0"}`} style={{ backgroundColor: 'pink', marginBottom: '3%' }}>
                             <div className='flex justify-between items-center'>
                                 <div className="px-6 py-4 border-b border-gray-200  ">
                                     <h2 className="text-xl font-bold text-gray-900 ">Quotations</h2>

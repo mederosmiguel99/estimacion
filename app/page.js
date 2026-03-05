@@ -262,29 +262,6 @@ export default function page() {
                   ))}
                 </div>
               </div>
-              {/* Qoutations Section */}
-              {/* <div className="mt-8 bg-white  rounded-xl shadow-lg overflow-hidden">
-                <div className='flex justify-between items-center'>
-                  <div className="px-6 py-4 border-b border-gray-200  ">
-                    <h2 className="text-xl font-bold text-gray-900 ">Qoutations</h2>
-                  </div>
-                  <div className='px-6 py-4'>
-                    <button id="addCategoryBtn" className="bg-fuchsia-700 hover:bg-fuchsia-800 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
-                      onClick={handleAddQuotation}>
-                      <i className="fa-regular fa-plus" ></i>
-                      <span>Add Qoutation</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="p-4" id="subcategoriesList">
-                  <QuotationsList
-                    project={selectedProject}
-                    onEdit={handleEditQuotation}
-                    onDelete={handleDelete}
-                  />
-                </div>
-              </div> */}
             </div>
             {/* Add/Edit Panel */}
             <AddEditProject

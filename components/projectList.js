@@ -45,6 +45,10 @@ export default function categoriesList(
     };
 
     const pendingCount = project?.quotations?.filter(q => !q.isReceived)?.length || 0;
+    const formatDate = (date) => {
+        if (!date) return "";
+        return new Date(date).toISOString().split("T")[0];
+    };
 
     return (
         <>
@@ -88,6 +92,9 @@ export default function categoriesList(
 
                         <div className="flex items-center space-x-2">
                             <div>
+                                <span className={`badge ${getProjectStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>
+                                    {formatDate(project.alertDate)}
+                                </span>
                                 <span className={`badge ${getProjectStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>
                                     Pending: {project?.quotations?.filter(q => !q.isReceived)?.length || 0}
                                 </span>

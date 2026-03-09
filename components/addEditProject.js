@@ -18,6 +18,7 @@ export default function addEditCategori({
 
     // 🟦 PROJECT
     const [requestDate, setRequestDate] = useState("");
+    const [alertDate, setAlertDate] = useState("");
     const [expirationDate, setExpirationDate] = useState("");
     const [isCompleted, setIsCompleted] = useState(false);
 
@@ -38,6 +39,7 @@ export default function addEditCategori({
                 if (project) {
                     setName(project.name);
                     setRequestDate(formatDate(project.requestDate));
+                    setAlertDate(formatDate(project.alertDate));
                     setExpirationDate(formatDate(project.expirationDate));
                     setIsCompleted(project.isCompleted || false);
                 }
@@ -89,6 +91,7 @@ export default function addEditCategori({
                     id: targetId,
                     name,
                     requestDate,
+                    alertDate,
                     expirationDate,
                     isCompleted
                 })
@@ -96,6 +99,7 @@ export default function addEditCategori({
                 onSaveCategory({
                     name,
                     requestDate,
+                    alertDate,
                     expirationDate,
                     isCompleted
                 });
@@ -170,6 +174,17 @@ export default function addEditCategori({
                                 </div>
 
                                 <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Alert Date</label>
+                                    <input
+                                        type="date"
+                                        value={alertDate}
+                                        onChange={(e) => setAlertDate(e.target.value)}
+                                        required
+                                        className={`w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500`}
+                                    />
+                                </div>
+
+                                <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">Expiration Date</label>
                                     <input
                                         type="date"
@@ -194,7 +209,7 @@ export default function addEditCategori({
                         {/* 🟪 QUOTATION */}
                         {mode === "quotation" && (
                             <>
-                                
+
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">Request Date</label>
                                     <input
@@ -245,7 +260,7 @@ export default function addEditCategori({
                                     <span>Saved</span>
                                 </div>
 
-                                
+
                             </>
                         )}
 

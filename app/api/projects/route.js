@@ -32,8 +32,10 @@ export async function POST(req) {
         const newProject = {
             name: body.name,
             requestDate: new Date(body.requestDate),
+            alertDate: new Date(body.alertDate),
             expirationDate: new Date(body.expirationDate),
             isCompleted: false,
+            isEmailSend: false,
             quotations: [],
             createdAt: new Date(),
             isDeleted: false,
@@ -51,6 +53,7 @@ export async function POST(req) {
             _id: result.insertedId,
             name: body.name,
             requestDate: new Date(body.requestDate),
+            alertDate: new Date(body.alertDate),
             expirationDate: new Date(body.expirationDate),
             isCompleted: false,
             quotations: [],
@@ -59,6 +62,7 @@ export async function POST(req) {
             deletedAt: null,
         });
     } catch (error) {
+        console.log(error);
         return Response.json({ error: 'Error al crear proyecto' }, { status: 500 });
     }
 }

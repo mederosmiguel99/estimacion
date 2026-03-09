@@ -33,8 +33,10 @@ export async function PUT(req, { params }) {
         const updateData = {
             ...(body.name && { name: body.name }),
             ...(body.requestDate && { requestDate: new Date(body.requestDate) }),
+            ...(body.alertDate && { alertDate: new Date(body.alertDate) }),
             ...(body.expirationDate && { expirationDate: new Date(body.expirationDate) }),
             ...(typeof body.isCompleted === 'boolean' && { isCompleted: body.isCompleted }),
+            ...(typeof body.isEmailSend === 'boolean' && { isEmailSend: body.isEmailSend }),
             updatedAt: new Date()
         };
 

@@ -43,6 +43,31 @@ export default function categoriesList(
             textWarning: 'InTime'
         }                         // 🟢 más de 2 días
     };
+    const getAlertDateStatusColor = (expirationDate)=>{
+       if (!expirationDate) return "bg-gray-400";
+
+        const today = new Date();
+        const exp = new Date(expirationDate);
+
+        // quitar horas para comparar bien
+        today.setHours(0, 0, 0, 0);
+        exp.setHours(0, 0, 0, 0);
+
+        const diffTime = exp - today;
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        const quotationPending = project?.quotations?.filter(q => !q.isReceived)?.length || 0
+
+        if (diffDays <= 1 && quotationPending != 0 && project.quotations.length > 0)
+            return {
+                warning: "bg-red-400",
+                textWarning: 'OutTime'
+            };        // 🔴 hoy o vencido
+        
+        return {
+            warning: "bg-yellow-300",
+            textWarning: 'InTime'
+        }  
+    }
 
     const pendingCount = project?.quotations?.filter(q => !q.isReceived)?.length || 0;
     const formatDate = (date) => {
@@ -92,7 +117,7 @@ export default function categoriesList(
 
                         <div className="flex items-center space-x-2">
                             <div>
-                                <span className={`badge ${getProjectStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>
+                                <span className={`badge ${getAlertDateStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>
                                     {formatDate(project.alertDate)}
                                 </span>
                                 <span className={`badge ${getProjectStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>

@@ -117,7 +117,7 @@ export default function categoriesList(
 
                         <div className="flex items-center space-x-2">
                             <div>
-                                <span className={`badge ${getAlertDateStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>
+                                <span className={`badge ${getAlertDateStatusColor(project.alertDate).warning} text-primary-800 dark:text-primary-300`}>
                                     {formatDate(project.alertDate)}
                                 </span>
                                 <span className={`badge ${getProjectStatusColor(project.expirationDate).warning} text-primary-800 dark:text-primary-300`}>

@@ -36,7 +36,7 @@ export async function PUT(req, { params }) {
             ...(body.alertDate && { alertDate: new Date(body.alertDate) }),
             ...(body.expirationDate && { expirationDate: new Date(body.expirationDate) }),
             ...(typeof body.isCompleted === 'boolean' && { isCompleted: body.isCompleted }),
-            ...(typeof body.isEmailSend === 'boolean' && { isEmailSend: body.isEmailSend }),
+            ...(typeof body.isReminder === 'boolean' && { isReminder: body.isReminder }),
             updatedAt: new Date()
         };
 

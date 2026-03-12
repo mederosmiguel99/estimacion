@@ -20,6 +20,7 @@ export default function addEditCategori({
     const [requestDate, setRequestDate] = useState("");
     const [alertDate, setAlertDate] = useState("");
     const [expirationDate, setExpirationDate] = useState("");
+    const [isReminder, setIsReminder] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
 
     // 🟪 QUOTATION
@@ -41,6 +42,7 @@ export default function addEditCategori({
                     setRequestDate(formatDate(project.requestDate));
                     setAlertDate(formatDate(project.alertDate));
                     setExpirationDate(formatDate(project.expirationDate));
+                    setIsReminder(project.isReminder || false)
                     setIsCompleted(project.isCompleted || false);
                 }
             }
@@ -70,7 +72,9 @@ export default function addEditCategori({
     const resetForm = () => {
         setName("");
         setRequestDate("");
+        setAlertDate("")
         setExpirationDate("");
+        setIsReminder(false)
         setIsCompleted(false);
         setPrice("");
         setIsReceived(false);
@@ -93,6 +97,7 @@ export default function addEditCategori({
                     requestDate,
                     alertDate,
                     expirationDate,
+                    isReminder,
                     isCompleted
                 })
             } else {
@@ -101,6 +106,7 @@ export default function addEditCategori({
                     requestDate,
                     alertDate,
                     expirationDate,
+                    isReminder,
                     isCompleted
                 });
             }
@@ -193,6 +199,15 @@ export default function addEditCategori({
                                         required
                                         className={`w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500`}
                                     />
+                                </div>
+
+                                <div className="flex items-center space-x-2">
+                                    <input
+                                        type="checkbox"
+                                        checked={isReminder}
+                                        onChange={(e) => setIsReminder(e.target.checked)}
+                                    />
+                                    <span>Reminder sent</span>
                                 </div>
 
                                 <div className="flex items-center space-x-2">

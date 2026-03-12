@@ -57,12 +57,17 @@ export default function categoriesList(
         const diffDays = diffTime / (1000 * 60 * 60 * 24);
         const quotationPending = project?.quotations?.filter(q => !q.isReceived)?.length || 0
 
-        if (diffDays <= 1 && quotationPending != 0 && project.quotations.length > 0)
+        if (diffDays <= 1 && quotationPending != 0 && project.quotations.length > 0 && !project.isReminder)
             return {
                 warning: "bg-red-400",
                 textWarning: 'OutTime'
             };        // 🔴 hoy o vencido
-        
+        if(project.isReminder)
+            return {
+            warning: "bg-green-300",
+            textWarning: 'InTime'
+        } 
+
         return {
             warning: "bg-yellow-300",
             textWarning: 'InTime'
